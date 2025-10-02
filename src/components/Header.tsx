@@ -1,78 +1,102 @@
 import { Button } from "@/components/ui/button";
-import { Plane, Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setIsMenuOpen(false);
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
-            <Plane className="w-4 h-4" />
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      <nav className="container px-4 md:px-6">
+        <div className="flex h-16 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold text-gradient">Aviator Tool</span>
           </div>
-          <span className="font-semibold text-lg">Aviator Tool</span>
-          <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full font-medium">
-            Licenciado
-          </span>
-        </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          <a href="#ferramenta" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Ferramenta
-          </a>
-          <a href="#estrategias" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Estratégias
-          </a>
-          <a href="#faq" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            FAQ
-          </a>
-        </nav>
-
-        <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" size="sm">
-            Abrir Ferramenta
-          </Button>
-          <Button variant="hero" size="sm">
-            Iniciar Agora
-          </Button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background p-4">
-          <nav className="flex flex-col gap-4">
-            <a href="#ferramenta" className="text-sm font-medium text-muted-foreground">
-              Ferramenta
-            </a>
-            <a href="#estrategias" className="text-sm font-medium text-muted-foreground">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6">
+            <button 
+              onClick={() => scrollToSection("ferramenta")}
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Como Usar
+            </button>
+            <button 
+              onClick={() => scrollToSection("estrategias")}
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
               Estratégias
-            </a>
-            <a href="#faq" className="text-sm font-medium text-muted-foreground">
+            </button>
+            <button 
+              onClick={() => scrollToSection("faq")}
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
               FAQ
-            </a>
-            <div className="flex flex-col gap-2 pt-4 border-t border-border">
-              <Button variant="ghost" size="sm">
-                Abrir Ferramenta
-              </Button>
+            </button>
+            <Link to="/support">
+              <Button variant="ghost" size="sm">Suporte</Button>
+            </Link>
+            <ThemeToggle />
+            <a href="https://www.megagamelive.com/affiliates/?btag=2084979" target="_blank" rel="noopener noreferrer">
               <Button variant="hero" size="sm">
-                Iniciar Agora
+                Começar Agora
               </Button>
-            </div>
-          </nav>
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
-      )}
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden py-4 space-y-3">
+            <button 
+              onClick={() => scrollToSection("ferramenta")}
+              className="block w-full text-left py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Como Usar
+            </button>
+            <button 
+              onClick={() => scrollToSection("estrategias")}
+              className="block w-full text-left py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Estratégias
+            </button>
+            <button 
+              onClick={() => scrollToSection("faq")}
+              className="block w-full text-left py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              FAQ
+            </button>
+            <Link to="/support" onClick={() => setIsMenuOpen(false)}>
+              <Button variant="ghost" size="sm" className="w-full">Suporte</Button>
+            </Link>
+            <a href="https://www.megagamelive.com/affiliates/?btag=2084979" target="_blank" rel="noopener noreferrer">
+              <Button variant="hero" size="sm" className="w-full">
+                Começar Agora
+              </Button>
+            </a>
+          </div>
+        )}
+      </nav>
     </header>
   );
 };

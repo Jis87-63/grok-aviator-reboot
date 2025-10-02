@@ -29,11 +29,13 @@ export const HeroSection = () => {
           </p>
 
           <div className="mb-12 flex flex-col sm:flex-row gap-4 justify-center animate-fade-up">
-            <Button variant="hero" size="xl" className="group">
-              <TrendingUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              Iniciar Agora
-            </Button>
-            <Button variant="outline" size="xl">
+            <a href="https://www.megagamelive.com/affiliates/?btag=2084979" target="_blank" rel="noopener noreferrer">
+              <Button variant="hero" size="xl" className="group">
+                <TrendingUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                Iniciar Agora
+              </Button>
+            </a>
+            <Button variant="outline" size="xl" onClick={() => window.location.href = '/tool'}>
               <Play className="w-5 h-5" />
               Abrir Ferramenta
             </Button>

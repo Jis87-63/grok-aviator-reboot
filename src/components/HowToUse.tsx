@@ -74,10 +74,12 @@ export const HowToUse = () => {
           </div>
 
           <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="xl">
-              Iniciar Agora
-            </Button>
-            <Button variant="outline" size="xl">
+            <a href="https://www.megagamelive.com/affiliates/?btag=2084979" target="_blank" rel="noopener noreferrer">
+              <Button variant="hero" size="xl">
+                Iniciar Agora
+              </Button>
+            </a>
+            <Button variant="outline" size="xl" onClick={() => window.location.href = '/tool'}>
               Abrir Ferramenta Agora
             </Button>
           </div>
