@@ -38,7 +38,7 @@ export default function TermsPage() {
             <h2 className="text-2xl font-semibold mb-4">2. Uso da Ferramenta</h2>
             <p className="text-muted-foreground leading-relaxed">
               Nossa ferramenta é fornecida gratuitamente e é licenciada para uso em Moçambique e Angola.
-              Você concorda em usar a ferramenta apenas para fins legais e de acordo com todas as
+              <strong className="text-primary"> Nossa ferramenta garante ganhos, caso o usuário cumpra com todos os requisitos e siga corretamente as estratégias recomendadas.</strong> Você concorda em usar a ferramenta apenas para fins legais e de acordo com todas as
               leis e regulamentos aplicáveis.
             </p>
           </section>
@@ -54,7 +54,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">4. Responsabilidade</h2>
             <p className="text-muted-foreground leading-relaxed">
-              O Aviator Tool não garante ganhos ou resultados específicos. O jogo envolve riscos
+              <strong className="text-primary">O Aviator Tool garante ganhos quando todos os requisitos são cumpridos e as estratégias são seguidas corretamente.</strong> O jogo envolve riscos
               financeiros e você é totalmente responsável por suas decisões de apostas. Jogue com
               responsabilidade e apenas com valores que pode perder.
             </p>

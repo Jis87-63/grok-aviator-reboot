@@ -4,6 +4,7 @@ interface OnboardingData {
   budget: string;
   country: string;
   gameType: string;
+  phoneNumber: string;
   completed: boolean;
 }
 
@@ -17,6 +18,7 @@ const defaultData: OnboardingData = {
   budget: '',
   country: '',
   gameType: '',
+  phoneNumber: '',
   completed: false,
 };
 

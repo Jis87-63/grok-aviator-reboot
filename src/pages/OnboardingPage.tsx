@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { ChevronRight } from 'lucide-react';
 
@@ -13,14 +14,41 @@ export default function OnboardingPage() {
     budget: '',
     country: '',
     gameType: '',
+    phoneNumber: '',
   });
+
+  const [operator, setOperator] = useState('');
 
   const handleSelect = (field: string, value: string) => {
     setAnswers(prev => ({ ...prev, [field]: value }));
   };
 
+  const handlePhoneChange = (value: string) => {
+    // Only allow numbers
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 9) {
+      setAnswers(prev => ({ ...prev, phoneNumber: numbers }));
+      
+      // Detect operator
+      if (numbers.length >= 2) {
+        const prefix = numbers.substring(0, 2);
+        if (prefix === '84' || prefix === '85') {
+          setOperator('Vodacom');
+        } else if (prefix === '86' || prefix === '87') {
+          setOperator('Movitel');
+        } else if (prefix === '82' || prefix === '83') {
+          setOperator('Tmcel');
+        } else {
+          setOperator('');
+        }
+      } else {
+        setOperator('');
+      }
+    }
+  };
+
   const handleNext = () => {
-    if (step < 3) {
+    if (step < 4) {
       setStep(step + 1);
     } else {
       updateData({ ...answers, completed: true });
@@ -32,6 +60,7 @@ export default function OnboardingPage() {
     if (step === 1) return answers.budget !== '';
     if (step === 2) return answers.country !== '';
     if (step === 3) return answers.gameType !== '';
+    if (step === 4) return answers.phoneNumber.length === 9 && operator !== '';
     return false;
   };
 
@@ -40,7 +69,7 @@ export default function OnboardingPage() {
       <Card className="w-full max-w-2xl p-8 md:p-12">
         <div className="mb-8">
           <div className="flex gap-2 mb-6">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
                 className={`h-2 flex-1 rounded-full transition-colors ${
@@ -51,7 +80,7 @@ export default function OnboardingPage() {
           </div>
           <h1 className="text-3xl font-bold mb-2">Vamos definir o seu espaço</h1>
           <p className="text-muted-foreground">
-            Passo {step} de 3
+            Passo {step} de 4
           </p>
         </div>
 
@@ -118,13 +147,38 @@ export default function OnboardingPage() {
           </div>
         )}
 
+        {step === 4 && (
+          <div className="space-y-6">
+            <h2 className="text-xl font-semibold">Qual é o seu número de telefone?</h2>
+            <p className="text-sm text-muted-foreground">
+              Digite 9 dígitos: 84/85 (Vodacom), 86/87 (Movitel), 82/83 (Tmcel)
+            </p>
+            <div className="space-y-3">
+              <Input
+                type="tel"
+                value={answers.phoneNumber}
+                onChange={(e) => handlePhoneChange(e.target.value)}
+                placeholder="Ex: 841234567"
+                className="text-lg h-14"
+                maxLength={9}
+              />
+              {operator && (
+                <div className="flex items-center gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
+                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-sm font-medium text-primary">{operator}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         <Button
           onClick={handleNext}
           disabled={!isStepComplete()}
           size="lg"
           className="w-full mt-8"
         >
-          {step === 3 ? 'Finalizar' : 'Continuar'}
+          {step === 4 ? 'Finalizar' : 'Continuar'}
           <ChevronRight className="ml-2 h-5 w-5" />
         </Button>
       </Card>

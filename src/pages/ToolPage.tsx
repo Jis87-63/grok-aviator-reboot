@@ -82,7 +82,9 @@ export default function ToolPage() {
             src="https://www.megagamelive.com/affiliates/?btag=2084979"
             className="w-full h-full min-h-[600px]"
             title="Aviator Tool"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-storage-access-by-user-activation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; payment; fullscreen"
+            referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
       </div>
